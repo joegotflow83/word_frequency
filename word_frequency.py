@@ -1,22 +1,35 @@
 #!usr/local/env python3.5
 from nltk import word_tokenize
+from nltk.tokenize import RegexpTokenizer
+import operator
 
 
-with open('sample.txt', 'r') as f:
+def read_file():
 
-	#print(f.read())
-	pass
+	with open('sample.txt', 'r') as f:
 
-word_dict ={}
+		return f.read()
 
-with open('sample.txt') as f:
+def count_words():	
 
-	tokens = word_tokenize(f.read())
-	words = [w.lower() for w in tokens]
-	words = sorted(words)
+	with open('sample.txt') as f:
 
-for word in set(words):
+		word_dict = {}
+		tokenizer = RegexpTokenizer(r'\w+')
+		content = tokenizer.tokenize(f.read())
+		words = [word.lower() for word in content]
+		words = sorted(words)
 
-	word_dict[word] = words.count(word)
+	for word in set(words):
 
-print(word_dict)
+		word_dict[word] = words.count(word)
+
+	return top_20(word_dict)
+
+def top_20(word_dict):
+
+	top_20_words = dict(sorted(word_dict.items(), key=operator.itemgetter(1), reverse=True)[:20])
+
+	print(top_20_words)
+
+count_words()
