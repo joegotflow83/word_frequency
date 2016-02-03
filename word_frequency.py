@@ -1,19 +1,20 @@
 #!usr/local/env python3.5
 from nltk import word_tokenize
 from nltk.tokenize import RegexpTokenizer
-from collections import defaultdict
 import operator
+import sys
 
 
-def read_file(file):
 
-	with open(file) as f:
+def read_file():
+
+	with open() as f:
 
 		return f.read()
 
-def count_words():	
+def count_words(inputfile):
 
-	with open('sample.txt') as f:
+	with open(inputfile) as f:
 
 		word_dict = {}
 		tokenizer = RegexpTokenizer(r'\w+')
@@ -46,4 +47,4 @@ def ignored_words():
 		content = tokenizer.tokenize(f.read())
 		return content
 
-count_words()
+count_words(sys.argv[-1])
