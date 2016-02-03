@@ -38,7 +38,7 @@ def top_20(word_dict):
 
 	top_20_words = sorted(word_dict.items(), key=operator.itemgetter(1), reverse=True)[:20]
 
-	return histgram(top_20_words)
+	return top_20_words
 
 '''def histgram(top_20_words):
 
