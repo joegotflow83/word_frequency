@@ -6,21 +6,33 @@ import operator
 import sys
 
 
-
-def read_file():
-
-	with open() as f:
-
-		return f.read()
-
-def count_words(inputfile):
+def read_file(inputfile):
 
 	with open(inputfile) as f:
 
-		word_dict = {}
+		return f.read()
+
+def ignored_words():
+
+	with open('ignored_words.txt') as f:
+
 		tokenizer = RegexpTokenizer(r'\w+')
 		content = tokenizer.tokenize(f.read())
-		words = [word.lower() for word in content]
+		return content
+
+def file_to_list(inputfile):
+
+	text = read_file(inputfile)
+	tokenizer = RegexpTokenizer(r'\w+')
+	content = tokenizer.tokenize(text)
+	words = [word.lower() for word in content]
+
+	return words
+
+def word_count(inputfile):
+
+	word_dict = {}
+	words = file_to_list(inputfile)
 
 	for word in set(words):
 
@@ -32,6 +44,12 @@ def count_words(inputfile):
 
 			word_dict[word] = words.count(word)
 
+	return word_dict
+
+def count_words(inputfile):
+
+	word_dict = word_count(inputfile)
+
 	return top_20(word_dict)
 
 def top_20(word_dict):
@@ -39,6 +57,11 @@ def top_20(word_dict):
 	top_20_words = sorted(word_dict.items(), key=operator.itemgetter(1), reverse=True)[:20]
 
 	return top_20_words
+
+
+count_words(sys.argv[-1])
+
+###########Ignore###########
 
 '''def histgram(top_20_words):
 
@@ -56,13 +79,3 @@ def top_20(word_dict):
 
 			v = int(values[i]/max_value*data_width)
 			return (f.write(plot_format.format(labels[i], '#'*v)))'''
-
-def ignored_words():
-
-	with open('ignored_words.txt') as f:
-
-		tokenizer = RegexpTokenizer(r'\w+')
-		content = tokenizer.tokenize(f.read())
-		return content
-
-count_words(sys.argv[-1])
