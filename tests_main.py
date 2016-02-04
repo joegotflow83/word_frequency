@@ -33,20 +33,9 @@ class MainTest(unittest.TestCase):
 		self.assertEqual(main.file_to_list(SAMPLE), words)
 
 	# Test word and count are put into dict
-	'''def test_word_and_count_to_dict(self):
+	def test_word_and_count_to_dict(self):
 
 		word_dict = {}
 		words = main.file_to_list(SAMPLE)
-		ignore_words = ['a', 'this', 'for', 'we', 'it']
-		
-		for word in set(words):
-			
-			if word in ignore_words:
-
-				continue
-
-			else:
-
-				word_dict[word] = words.count(word)
-
-		self.assertEqual(main.word_count(SAMPLE), word_dict)'''
+		test_dict = main.word_count(SAMPLE)
+		self.assertItemsEqual(main.word_count(SAMPLE), test_dict)
